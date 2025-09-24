@@ -51,15 +51,21 @@ fun MyApp(
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     val expanded = remember { mutableStateOf(false) }
+    val extraPadding = if (expanded.value) 48.dp else 0.dp
     Surface(
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
         Row(modifier = Modifier.padding(24.dp)) {
-            Column(modifier = Modifier.weight(1f)){
-                Text(text = "Hello")
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(bottom = extraPadding)
+            ) {
+                Text(text = "Hello ")
                 Text(text = name)
             }
+
             ElevatedButton(
                 onClick = { expanded.value = !expanded.value }
             ) {
@@ -70,7 +76,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 }
 
 @Preview(showBackground = true, widthDp = 320)
-@Composable
+@Composable 
 fun GreetingPreview() {
     JetpackComposeTheme {
         MyApp()
